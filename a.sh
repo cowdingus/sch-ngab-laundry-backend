@@ -1,5 +1,5 @@
-npx sequelize-cli model:create --name user --attributes username:string,password:string,role:string --underscored
-npx sequelize-cli model:create --name transaction_detail --attributes transaction_id:integer,package_id:integer,qty:integer --underscored
-npx sequelize-cli model:create --name transaction --attributes member_id:integer,date:date,deadline:date,payment_date:date,progress_status:string,payment_status:string,user_id:integer --underscored
-npx sequelize-cli model:create --name member --attributes name:string,address:string,gender:string,phone_number:string --underscored
-npx sequelize-cli model:create --name package --attributes name:string,price:integer --underscored
+npx sequelize-cli model:create --name User --attributes username:string,password:string,role:string
+npx sequelize-cli model:create --name TransactionDetail --attributes transactionId:integer,packageId:integer,qty:integer
+npx sequelize-cli model:create --name Transaction --attributes memberId:integer,date:date,deadline:date,paymentDate:date,progressStatus:string,paymentStatus:string,userId:integer
+npx sequelize-cli model:create --name Member --attributes name:string,address:string,gender:string,phoneNumber:string
+npx sequelize-cli model:create --name Package --attributes name:string,price:integer
