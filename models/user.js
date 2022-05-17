@@ -2,6 +2,11 @@
 const {
   Model
 } = require('sequelize');
+
+const bcrypt = require('bcrypt');
+
+const saltRounds = 10;
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -15,8 +20,17 @@ module.exports = (sequelize, DataTypes) => {
   }
   User.init({
     username: DataTypes.STRING,
-    password: DataTypes.STRING,
-    role: DataTypes.STRING
+    password: {
+      type: DataTypes.STRING,
+      set(value) {
+        this.setDataValue('password', bcrypt.hashSync(value, saltRounds));
+      }
+    },
+    role: {
+      type: DataTypes.ENUM,
+      values: ['admin', 'member'],
+      defaultValue: 'member'
+    }
   }, {
     sequelize,
     modelName: 'User',
