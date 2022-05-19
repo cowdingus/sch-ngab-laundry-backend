@@ -2,22 +2,22 @@
   "development": {
     "username": "root",
     "password": null,
-    "database": "laundry_the_end_dev",
+    "database": "ngab_laundry_dev",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mariadb"
   },
   "test": {
     "username": "root",
     "password": null,
-    "database": "laundry_the_end_test",
+    "database": "ngab_laundry_test",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mariadb"
   },
   "production": {
     "username": "root",
     "password": null,
-    "database": "laundry_the_end_production",
+    "database": "ngab_laundry_production",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mariadb"
   }
 }
