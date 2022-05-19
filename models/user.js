@@ -16,6 +16,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      User.hasMany(models.Transaction, {
+        foreignKey: "userId",
+        as: "transactions"
+      });
     }
   }
   User.init({
@@ -28,8 +32,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     role: {
       type: DataTypes.ENUM,
-      values: ['admin', 'member'],
-      defaultValue: 'member'
+      values: ['admin', 'cashier'],
+      defaultValue: 'cashier'
     }
   }, {
     sequelize,
