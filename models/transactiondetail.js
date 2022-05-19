@@ -11,8 +11,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      TransactionDetail.belongsTo(models.Transaction);
-      TransactionDetail.hasOne(models.packageId);
+      TransactionDetail.belongsTo(models.Transaction, {
+        foreignKey: "transactionId",
+        as: "transaction"
+      });
+
+      TransactionDetail.belongsTo(models.Package, {
+        foreignKey: "packageId",
+        as: "package"
+      });
     }
   }
   TransactionDetail.init({
