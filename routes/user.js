@@ -14,11 +14,11 @@ router.delete('/:id', mustLogin, asyncHandler(async (req, res) => {
   const user = await User.findByPk(req.params.id);
 
   if (!user) {
-    res.sendStatus(404);
+    res.status(404).end();
   }
 
   await user.destroy();
-  res.sendStatus(202);
+  res.status(202).end();
 }));
 
 router.put('/:id', mustLogin, asyncHandler(async (req, res) => {

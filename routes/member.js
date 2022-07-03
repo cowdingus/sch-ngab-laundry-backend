@@ -57,7 +57,7 @@ router.get("/:id", asyncHandler(async (req, res) => {
 	const member = await Member.findByPk(req.params.id);
 
 	if (!member) {
-		res.sendStatus(404);
+		res.status(404).end();
 		return;
 	}
 
@@ -91,12 +91,12 @@ router.delete("/:id", mustLogin, mustBeAdmin, asyncHandler(async (req, res) => {
 	const member = await Member.findByPk(req.params.id);
 
 	if (!member) {
-		res.sendStatus(404);
+		res.status(404).end();
 		return;
 	}
 
 	await member.destroy();
-	res.sendStatus(202);
+	res.status(202).end();
 }));
 
 module.exports = router;

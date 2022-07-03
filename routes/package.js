@@ -16,7 +16,7 @@ router.get("/:id", asyncHandler(async (req, res) => {
 	const package = await Package.findByPk(req.params.id);
 
 	if (!package) {
-		res.sendStatus(404);
+		res.status(404).end();
 		return;
 	}
 
@@ -50,12 +50,12 @@ router.delete("/:id", mustLogin, mustBeAdmin, asyncHandler(async (req, res) => {
 	const package = await Package.findByPk(req.params.id);
 
 	if (!package) {
-		res.sendStatus(404);
+		res.status(404).end();
 		return;
 	}
 
 	await package.destroy();
-	res.sendStatus(202);
+	res.status(202).end();
 }));
 
 module.exports = router;
