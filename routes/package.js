@@ -18,10 +18,6 @@ const validateSchema = [
 			isInt: {
 				errorMessage: "Price must be an integer"
 			},
-			isLength: {
-				options: { min: 3, max: 6 },
-				errorMessage: "Price must be higher than 100 and less than 1000000"
-			}
 		}
 	}),
 	(req, res, next) => {
