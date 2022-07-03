@@ -5,6 +5,39 @@ const asyncHandler = require('express-async-handler');
 
 const { User } = require('../models');
 
+const { checkSchema, validationResult } = require("express-validator");
+
+const validateSchema = [
+	checkSchema({
+    username: {
+      matches: {
+        options: ["^[a-zA-Z0-9]*$"],
+        errorMessage: "Username must only consists of alphanumeric characters"
+      }
+    },
+    email: {
+      isEmail: {
+        errorMessage: "Email must be a valid email address"
+      }
+    },
+    password: {
+      isLength: {
+        options: { min: 8, max: 22 },
+        errorMessage: "Password must be >8 and <22 digits"
+      }
+    }
+	}),
+	(req, res, next) => {
+		const errors = validationResult(req);
+
+		if (errors.isEmpty()) {
+			return next();
+		}
+
+		res.status(400).json({ errors: errors.array() });
+	}
+];
+
 router.post('/login', asyncHandler(async (req, res, next) => {
   const user = await User.findOne({ where: { username: req.body.username } });
 
@@ -39,7 +72,7 @@ router.post('/login', asyncHandler(async (req, res, next) => {
   );
 }));
 
-router.post('/signup', asyncHandler(async (req, res, next) => {
+router.post('/signup', validateSchema, asyncHandler(async (req, res, next) => {
   const user = await User.create(req.body, { fields: ['username', 'email', 'password'] })
 
   res.json({

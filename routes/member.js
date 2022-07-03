@@ -36,7 +36,6 @@ const validateSchema = [
 	}),
 	(req, res, next) => {
 		const errors = validationResult(req);
-		console.log(req.body.gender);
 
 		if (errors.isEmpty()) {
 			return next();

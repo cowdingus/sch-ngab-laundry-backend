@@ -1,9 +1,51 @@
 const express = require("express");
+const { checkSchema, validationResult } = require("express-validator");
 const router = express.Router();
 
 const asyncHandler = require("express-async-handler");
 const { Transaction, TransactionDetail, User, Member } = require("../models");
 const { mustLogin, mustBeAdmin } = require("../middlewares/must");
+
+const validateSchema = [
+	checkSchema({
+		memberId: {
+			isInt: true
+		},
+		userId: {
+			isInt: true
+		},
+		date: {
+			isDate: true
+		},
+		deadline: {
+			isDate: true
+		},
+		paymentDate: {
+			isDate: true
+		},
+		progressStatus: {
+			isIn: {
+				options: [["new", "in_progress", "done", "picked_up"]],
+				errorMessage: "Valid values: 'new', 'in_progress', 'done', 'picked_up'"
+			}
+		},
+		paymentStatus: {
+			isIn: {
+				options: [["already_paid", "not_paid_yet"]],
+				errorMessage: "Valid values: 'already_paid', 'not_paid_yet'"
+			}
+		}
+	}),
+	(req, res, next) => {
+		const errors = validationResult(req);
+
+		if (errors.isEmpty()) {
+			return next();
+		}
+
+		res.status(400).json({ errors: errors.array() });
+	}
+];
 
 const transactionFields = [
 	"memberId",
@@ -44,7 +86,7 @@ router.get("/:id", asyncHandler(async (req, res) => {
 	res.json(transaction);
 }));
 
-router.post("/", mustLogin, mustBeAdmin, asyncHandler(async (req, res) => {
+router.post("/", mustLogin, mustBeAdmin, validateSchema, asyncHandler(async (req, res) => {
 	const result = await Transaction.create(req.body, {
 		fields: transactionFields
 	});
@@ -52,7 +94,7 @@ router.post("/", mustLogin, mustBeAdmin, asyncHandler(async (req, res) => {
 	res.json(result);
 }));
 
-router.put("/:id", mustLogin, mustBeAdmin, asyncHandler(async (req, res) => {
+router.put("/:id", mustLogin, mustBeAdmin, validateSchema, asyncHandler(async (req, res) => {
 	const transaction = await Transaction.findByPk(req.params.id);
 
 	if (!transaction) {
