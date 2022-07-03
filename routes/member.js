@@ -10,8 +10,8 @@ const validateSchema = [
 	checkSchema({
 		name: {
 			isLength: {
-				options: { min: 3, max: 12 },
-				errorMessage: "Name must be at least 2 chars and maximum 12 chars long"
+				options: { min: 3, max: 255 },
+				errorMessage: "Name must be at least 2 chars and maximum 255 chars long"
 			},
 			matches: {
 				options: ['^[a-zA-Z ]+$'],

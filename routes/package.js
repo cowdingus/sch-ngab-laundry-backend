@@ -10,7 +10,7 @@ const validateSchema = [
 	checkSchema({
 		name: {
 			matches: {
-				options: ["/^[a-zA-Z0-9 ]+$/"],
+				options: ["^[a-zA-Z0-9 ]+$"],
 				errorMessage: "Name must consists alphanumeric characters"
 			}
 		},

@@ -12,7 +12,11 @@ const validateSchema = [
       matches: {
         options: ["^[a-zA-Z0-9]*$"],
         errorMessage: "Username must only consists of alphanumeric characters"
-      }
+      },
+			isLength: {
+				options: { min: 3, max: 12 },
+				errorMessage: "Username must be at least 2 chars and maximum 12 chars long"
+			},
     },
     password: {
       isLength: {

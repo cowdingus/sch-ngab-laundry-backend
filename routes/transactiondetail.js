@@ -14,7 +14,7 @@ const validateSchema = [
 			isInt: true,
 			isLength: {
 				options: { min: 1, max: 3 },
-				errorMessage: "Qty must be more than 1 and less than 1000"
+				errorMessage: "Qty must be more than 0 and less than 1000"
 			}
 		}
 	}),
